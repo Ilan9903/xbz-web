@@ -22,7 +22,7 @@ export default function EquipesPage() {
         {roster.map((entry) => (
           <div
             key={entry.title}
-            className="w-72 overflow-hidden rounded-2xl border border-xbz-blue/20 bg-white/[0.03] p-6 transition duration-300 hover:-translate-y-2 hover:border-xbz-blue hover:shadow-[0_0_25px_rgba(0,102,255,0.2)]"
+            className="w-72 overflow-hidden rounded-2xl border border-xbz-blue/20 bg-white/3 p-6 transition duration-300 hover:-translate-y-2 hover:border-xbz-blue hover:shadow-[0_0_25px_rgba(0,102,255,0.2)]"
           >
             <h3 className="mb-2 font-display text-lg text-xbz-blue">{entry.title}</h3>
             <p className="text-sm text-neutral-400">{entry.description}</p>

@@ -36,18 +36,21 @@ export default function RecrutementForm() {
     setStatus({ msg: "⏳ Envoi en cours...", tone: "loading" });
 
     try {
-      // NB: /api/recrutement sera créé à l'étape 6 (proxy sécurisé vers le bot)
       const res = await fetch("/api/recrutement", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      if (!res.ok) throw new Error();
+      const json = await res.json().catch(() => null);
+      if (!res.ok || !json?.ok) {
+        throw new Error(json?.error ?? "Erreur lors de l'envoi.");
+      }
       setStatus({ msg: "✅ Candidature envoyée avec succès !", tone: "ok" });
       form.reset();
       setJeu("");
-    } catch {
-      setStatus({ msg: "❌ Erreur lors de l'envoi. Réessaie plus tard.", tone: "error" });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Erreur lors de l'envoi.";
+      setStatus({ msg: `❌ ${msg}`, tone: "error" });
     } finally {
       setSubmitting(false);
     }
